@@ -22,13 +22,14 @@
       color: white;
       padding: 50px 24px; /* big at top */
       position: relative;
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+      will-change: padding;
     }
 
     header.floating {
       position: sticky;
       top: 0;
-      padding: 14px 24px; /* small when floating */
+      padding: 18px 24px; /* smaller when floating */
       box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       z-index: 1000;
     }
@@ -272,15 +273,21 @@
 
   cards.forEach(card => cardObserver.observe(card));
 
-
-  // Floating header on scroll (smooth)
-  let lastState = false;
+  // Floating header on scroll (smooth & safe)
   const header = document.getElementById('mainHeader');
+  let ticking = false;
+
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 120) {
-      header.classList.add('floating');
-    } else {
-      header.classList.remove('floating');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 80) {
+          header.classList.add('floating');
+        } else {
+          header.classList.remove('floating');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   });
 
