@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retention Manager Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background: #f7f7f7;
+      color: #222;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: linear-gradient(135deg, #b30000, #1a1a1a);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+    header p {
+      margin-top: 12px;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.7s ease;
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      margin-top: 0;
+      color: #b30000;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    table th {
+      background: #f2f2f2;
+    }
+    .highlight {
+      background: #fff5f5;
+      border-left: 4px solid #b30000;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #111;
+      color: #ccc;
+      font-size: 14px;
+    }
+    canvas {
+      margin-top: 20px;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .profile-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+    }
+    .company-logo {
+      width: 120px;
+      height: auto;
+    }
+    .header-text {
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 28px; }
+      section { margin: 40px auto; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <img src="https://i.postimg.cc/DZvx8pwg/IMG_8139_1.jpg" alt="Profile Photo" class="profile-img" />
+    <div class="header-text">
+      <h1>Retention Manager Portfolio</h1>
+      <p>Lifecycle • WebEngage • Revenue-focused Retention</p>
+    </div>
+    <img src="https://i.postimg.cc/wxwvQbWk/livelaw-circle.png" alt="Company Logo" class="company-logo" />
+  </div>
+</header>
+
+<section>
+  <div class="card">
+    <h2>About My Role</h2>
+    <p>
+      I focus on building and managing the WebEngage retention setup to improve customer engagement and long-term retention.
+      My work is structured, simple to understand, and designed for long-term use so that the system remains easy to manage even as the team grows.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Key Responsibilities</h2>
+    <ul>
+      <li>Email campaigns and newsletters</li>
+      <li>Creation and management of retention journeys</li>
+      <li>Win-back journeys for unsubscribed, expired, and inactive users</li>
+      <li>Premium and non-premium user engagement</li>
+      <li>Customer interest onsite survey form</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Journeys & Campaigns Implemented</h2>
+    <table>
+      <tr><th>Journey / Campaign</th><th>Channels</th></tr>
+      <tr><td>User Registration & Conversion Journey</td><td>Email, Push, Web Push</td></tr>
+      <tr><td>Subscription Expired Win-back</td><td>Email, Push, Web Push</td></tr>
+      <tr><td>Subscription Abandoned Win-back</td><td>Email, Push, Web Push</td></tr>
+      <tr><td>Inactive User Win-back</td><td>Email, Push, Web Push</td></tr>
+      <tr><td>Daily Newsletter</td><td>Email</td></tr>
+      <tr><td>Premium Newsletter</td><td>Email</td></tr>
+      <tr><td>Non-Premium Newsletter</td><td>Email</td></tr>
+      <tr><td>Customer Interest Survey</td><td>Onsite</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Revenue Contribution</h2>
+    <div class="highlight">
+      <b>Note:</b> August and September reflect email-only revenue. Push, onsite notifications, and journeys were implemented from October onwards.
+    </div>
+    <canvas id="revenueChart" height="120"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Process Design & Long-Term Value</h2>
+    <ul>
+      <li>Journeys are clearly named and structured for easy understanding</li>
+      <li>Designed so new team members can manage without long onboarding</li>
+      <li>Built for long-term use with minimal maintenance</li>
+      <li>Reduces dependency on individuals and supports scalability</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  © Retention Manager Portfolio • Internal Use
+</footer>
+
+<script>
+  // Scroll animation
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  cards.forEach(card => observer.observe(card));
+
+  // Revenue Chart
+  const ctx = document.getElementById('revenueChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [{
+        label: 'Revenue (₹)',
+        data: [896254, 934852, 4095605, 1862263, 3240079],
+        backgroundColor: '#b30000'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
