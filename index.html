@@ -171,11 +171,63 @@
     }
 
     @media (max-width: 600px) {
+      /* Stack header nicely on mobile */
       .header-content {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 10px;
         text-align: center;
       }
+
+      /* Reduce top banner height on mobile */
+      header {
+        padding: 30px 16px;
+      }
+
+      header.floating {
+        padding: 12px 16px;
+      }
+
+      /* Image & logo sizes on mobile (top) */
+      .profile-img,
+      .company-logo {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto;
+      }
+
+      /* Image & logo sizes on mobile (floating) */
+      header.floating .profile-img,
+      header.floating .company-logo {
+        width: 56px;
+        height: 56px;
+      }
+
+      header h1 {
+        font-size: 20px;
+      }
+
+      header.floating h1 {
+        font-size: 18px;
+      }
+
+      header p {
+        font-size: 13px;
+      }
+
+      header.floating p {
+        font-size: 12px;
+      }
+
+      /* Content spacing */
+      section {
+        margin: 30px auto;
+        padding: 0 14px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
 
       header h1 { font-size: 22px; }
 
@@ -311,4 +363,3 @@
 
 </body>
 </html>
-
